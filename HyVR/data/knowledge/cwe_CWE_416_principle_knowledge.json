@@ -1,0 +1,37 @@
+[
+    {
+        "cwe_id": "CWE-416",
+        "name": "Use After Free",
+        "definition": "Referencing memory after it has been freed can cause a program to crash, use unexpected values, or execute code.",
+        "common_code_behavior": "CWE-416 vulnerabilities are characterized by improper management of pointers or references, often leading to dangling pointers or double-free issues after memory is freed and then still accessed. These vulnerabilities typically occur in applications that allocate and deallocate memory and fail to correctly update or manage pointers after freeing memory.",
+        "vulnerability_logic_pattern": [
+            "Memory allocation (malloc/calloc, etc.) results in a pointer pointing at the start of allocated memory area.",
+            "Pointer is used to access or modify data in the allocated memory block.",
+            "Under certain conditions, the allocated memory block is freed using free or similar functions.",
+            "Pointer remains unchanged and still points at the deallocated memory area.",
+            "Pointer dereference occurs without checking validity, leading to undefined behavior (e.g., segmentation fault)."
+        ],
+        "reasoning_checklist": [
+            "Does the code allocate memory dynamically (in function arguments, return type, or local declarations)?",
+            "Is there any pointer manipulation (dereferencing, increment/decrement) before the deallocation occurs?",
+            "After the memory is freed, are all pointers to that memory properly reset to NULL and not used thereafter?",
+            "Are conditional checks present before accessing the pointer to ensure it hasn't been freed yet?"
+        ],
+        "standard_fix_principle": "When freeing allocated memory, always set the pointer to NULL immediately after deallocation to prevent accidental use of dangling pointers. Additionally, before dereferencing a pointer, check that it is not NULL.",
+        "source_instances": {
+            "cve_ids": [
+                "CVE-2020-14381",
+                "CVE-2020-14381",
+                "CVE-2020-14381",
+                "CVE-2018-10876",
+                "CVE-2018-10876",
+                "CVE-2018-10876",
+                "CVE-2018-10876",
+                "CVE-2018-10876",
+                "CVE-2016-9576",
+                "CVE-2018-9465"
+            ],
+            "sample_count": 10
+        }
+    }
+]

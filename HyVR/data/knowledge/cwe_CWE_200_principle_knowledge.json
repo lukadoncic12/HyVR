@@ -1,0 +1,36 @@
+[
+    {
+        "cwe_id": "CWE-200",
+        "name": "Exposure of Sensitive Information to an Unauthorized Actor",
+        "definition": "The product exposes sensitive information to an actor that is not explicitly authorized to have access to that information.",
+        "common_code_behavior": "The common code behavior pattern in CWE-200 vulnerabilities involves copying or transferring data structures from kernel space to user space without ensuring that all fields of the structure are properly initialized and cleared. This can lead to the exposure of sensitive information, such as uninitialized memory contents, to unauthorized actors.",
+        "vulnerability_logic_pattern": [
+            "A data structure is declared or used in the code.",
+            "The code copies or transfers this data structure to user space without fully initializing all its fields.",
+            "An attacker gains access to the uninitialized portions of the data structure through user-space APIs.",
+            "Sensitive information from uninitialized memory is exposed."
+        ],
+        "reasoning_checklist": [
+            "Are there any structures that are being copied or transferred to user space?",
+            "Is there evidence that all fields of these structures are not fully initialized before transfer?",
+            "Can an unauthorized actor access the user-space interface used for data transfer?",
+            "Does the code handle cases where sensitive data might be exposed due to incomplete initialization?"
+        ],
+        "standard_fix_principle": "To fix CWE-200 vulnerabilities, ensure that all fields within data structures are properly initialized and cleared before they are copied or transferred to user space. Use functions that guarantee complete initialization of destination buffers, and consider adding explicit checks to validate that sensitive information is not inadvertently exposed.",
+        "source_instances": {
+            "cve_ids": [
+                "CVE-2018-19854",
+                "CVE-2018-19854",
+                "CVE-2018-19854",
+                "CVE-2018-19854",
+                "CVE-2018-19854",
+                "CVE-2018-19854",
+                "CVE-2018-3665",
+                "CVE-2018-3665",
+                "CVE-2018-3665",
+                "CVE-2018-3665"
+            ],
+            "sample_count": 10
+        }
+    }
+]

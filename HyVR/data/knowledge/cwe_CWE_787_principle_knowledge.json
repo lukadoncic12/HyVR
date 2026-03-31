@@ -1,0 +1,38 @@
+[
+    {
+        "cwe_id": "CWE-787",
+        "name": "Out-of-bounds Write",
+        "definition": "The software writes data past the end, or before the beginning, of the intended buffer.",
+        "common_code_behavior": "CWE-787 represents out-of-bounds access in linked data structures or arrays where the bounds checks are insufficient or missing entirely. The common code behavior involves directly referencing a list's first element without verifying that the list is not empty, leading to undefined access if the list is empty.",
+        "vulnerability_logic_pattern": [
+            "1. Access to a shared or dynamic linked data structure (e.g., linked list).",
+            "2. Assumption that the list contains at least one element.",
+            "3. Direct reference to the first element without checking if the list is empty.",
+            "4. Potential for out-of-bounds access leading to undefined behavior."
+        ],
+        "reasoning_checklist": [
+            "Does the code assume a non-empty linked data structure?",
+            "Is there a bounds or null check before accessing the first element?",
+            "How are errors handled if the list is unexpectedly empty?",
+            "Are all possible states of the shared structure accounted for?",
+            "Can additional invalid states cause out-of-bounds access?",
+            "How does the code handle race conditions or concurrent modifications?"
+        ],
+        "standard_fix_principle": "Ensure that bounds checks are always present when accessing elements in linked data structures. Validate that the list is not empty before dereferencing its first element. Implement robust error handling to manage unexpected states gracefully.",
+        "source_instances": {
+            "cve_ids": [
+                "CVE-2017-18552",
+                "CVE-2021-42008",
+                "CVE-2018-13095",
+                "CVE-2020-9391",
+                "CVE-2020-9391",
+                "CVE-2020-9391",
+                "CVE-2019-19816",
+                "CVE-2019-19816",
+                "CVE-2019-19816",
+                "CVE-2019-19532"
+            ],
+            "sample_count": 10
+        }
+    }
+]

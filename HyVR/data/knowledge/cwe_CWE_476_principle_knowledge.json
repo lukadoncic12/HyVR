@@ -1,0 +1,41 @@
+[
+    {
+        "cwe_id": "CWE-476",
+        "name": "NULL Pointer Dereference",
+        "definition": "A NULL pointer dereference occurs when the application dereferences a pointer that it expects to be valid, but is NULL.",
+        "common_code_behavior": "CWE-476, also known as Dereference of a Null Pointer, occurs when a program attempts to dereference a pointer that has a null value. This typically happens when the program does not adequately validate whether a pointer holds a valid memory address before using it for accessing or manipulating data.",
+        "vulnerability_logic_pattern": [
+            "Identifier/Declaration: A pointer is declared or initialized, potentially with a null value.",
+            "Control Path Manipulation: The flow of execution leads to a situation where the pointer may not have been assigned a valid memory address.",
+            "Conditional Validation Insufficiency/Bypass: There are insufficient or bypassed checks to verify whether the pointer points to valid memory before dereferencing.",
+            "Dereference: The program proceeds to dereference the unverified (potentially null) pointer, leading to memory access violations."
+        ],
+        "reasoning_checklist": [
+            "Is there a possibility for the pointer to hold a null value or become invalid at some point in the code execution?",
+            "Are there checks before using the pointer that validate whether it is pointing to valid memory?",
+            "If there are checks, are they sufficient and correctly implemented?",
+            "In cases of multiple pointers involved in complex control flows, do all potential paths assign valid addresses before use?"
+        ],
+        "standard_fix_principle": [
+            "Always check if a pointer holds a valid (non-null) address before attempting to dereference it.",
+            "Implement comprehensive validation checks covering all possible code paths that access the pointer.",
+            "Ensure that initialization and assignment of pointers guarantee they point to valid data wherever they are used.",
+            "Consider using smart pointers or language mechanisms that prevent null pointer dereferencing where applicable."
+        ],
+        "source_instances": {
+            "cve_ids": [
+                "CVE-2023-31083",
+                "CVE-2017-15116",
+                "CVE-2017-15116",
+                "CVE-2017-15116",
+                "CVE-2017-15116",
+                "CVE-2018-7492",
+                "CVE-2023-32252",
+                "CVE-2023-32252",
+                "CVE-2023-32252",
+                "CVE-2023-32252"
+            ],
+            "sample_count": 10
+        }
+    }
+]

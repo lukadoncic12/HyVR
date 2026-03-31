@@ -1,0 +1,39 @@
+[
+    {
+        "cwe_id": "CWE-20",
+        "name": "Improper Input Validation",
+        "definition": "The product receives input or data, but it does not validate or incorrectly validates that the input has the properties that are required to process the data safely and correctly.",
+        "common_code_behavior": "CWE-20 vulnerabilities in the context of handling socket operations exhibit common patterns where kernel-to-user space data transfer is not appropriately validated against buffer sizes and structure lengths. This results in the potential exposure of sensitive memory contents to untrusted user processes.",
+        "vulnerability_logic_pattern": [
+            "A system call or function invoked by a local user to receive data from a socket",
+            "Kernel prepares data for transfer, potentially including additional metadata or status information",
+            "Length parameter provided by the user is read without validation",
+            "Data is copied directly from kernel space to user space based on the unvalidated length",
+            "If the length exceeds actual data size or valid buffer limits, unintended memory regions are accessed",
+            "Sensitive kernel data may be exposed to the user process"
+        ],
+        "reasoning_checklist": [
+            "Is there a direct transfer of data from kernel to user space without checks on its length?",
+            "Does the code validate whether the provided length parameter matches the expected size or buffer limits?",
+            "Are socket address structures handled in a way that ensures their actual size is respected during copying operations?",
+            "Have edge cases, such as when the user length exceeds available data or goes beyond valid buffer boundaries, been considered?",
+            "Does the code handle situations where the underlying kernel buffer might change sizes dynamically?"
+        ],
+        "standard_fix_principle": "To fix CWE-20 vulnerabilities in socket handling, ensure that all data transfers from kernel to user space are rigorously validated against buffer sizes and structure lengths. Implement checks that prevent copying more data than what is available or valid for the destination buffer, ensuring that only expected amounts of data are transferred.",
+        "source_instances": {
+            "cve_ids": [
+                "CVE-2013-7266",
+                "CVE-2013-7266",
+                "CVE-2013-7266",
+                "CVE-2013-7266",
+                "CVE-2013-7266",
+                "CVE-2013-7266",
+                "CVE-2013-7266",
+                "CVE-2013-7266",
+                "CVE-2013-7266",
+                "CVE-2013-7266"
+            ],
+            "sample_count": 10
+        }
+    }
+]

@@ -1,0 +1,19 @@
+[
+    {
+        "cve_id": "CVE-2014-0181",
+        "code_before_change": "static int cgw_remove_job(struct sk_buff *skb, struct nlmsghdr *nlh)\n{\n\tstruct cgw_job *gwj = NULL;\n\tstruct hlist_node *nx;\n\tstruct rtcanmsg *r;\n\tstruct cf_mod mod;\n\tstruct can_can_gw ccgw;\n\tu8 limhops = 0;\n\tint err = 0;\n\n\tif (!capable(CAP_NET_ADMIN))\n\t\treturn -EPERM;\n\n\tif (nlmsg_len(nlh) < sizeof(*r))\n\t\treturn -EINVAL;\n\n\tr = nlmsg_data(nlh);\n\tif (r->can_family != AF_CAN)\n\t\treturn -EPFNOSUPPORT;\n\n\t/* so far we only support CAN -> CAN routings */\n\tif (r->gwtype != CGW_TYPE_CAN_CAN)\n\t\treturn -EINVAL;\n\n\terr = cgw_parse_attr(nlh, &mod, CGW_TYPE_CAN_CAN, &ccgw, &limhops);\n\tif (err < 0)\n\t\treturn err;\n\n\t/* two interface indices both set to 0 => remove all entries */\n\tif (!ccgw.src_idx && !ccgw.dst_idx) {\n\t\tcgw_remove_all_jobs();\n\t\treturn 0;\n\t}\n\n\terr = -EINVAL;\n\n\tASSERT_RTNL();\n\n\t/* remove only the first matching entry */\n\thlist_for_each_entry_safe(gwj, nx, &cgw_list, list) {\n\n\t\tif (gwj->flags != r->flags)\n\t\t\tcontinue;\n\n\t\tif (gwj->limit_hops != limhops)\n\t\t\tcontinue;\n\n\t\tif (memcmp(&gwj->mod, &mod, sizeof(mod)))\n\t\t\tcontinue;\n\n\t\t/* if (r->gwtype == CGW_TYPE_CAN_CAN) - is made sure here */\n\t\tif (memcmp(&gwj->ccgw, &ccgw, sizeof(ccgw)))\n\t\t\tcontinue;\n\n\t\thlist_del(&gwj->list);\n\t\tcgw_unregister_filter(gwj);\n\t\tkmem_cache_free(cgw_cache, gwj);\n\t\terr = 0;\n\t\tbreak;\n\t}\n\n\treturn err;\n}",
+        "code_after_change": "static int cgw_remove_job(struct sk_buff *skb, struct nlmsghdr *nlh)\n{\n\tstruct cgw_job *gwj = NULL;\n\tstruct hlist_node *nx;\n\tstruct rtcanmsg *r;\n\tstruct cf_mod mod;\n\tstruct can_can_gw ccgw;\n\tu8 limhops = 0;\n\tint err = 0;\n\n\tif (!netlink_capable(skb, CAP_NET_ADMIN))\n\t\treturn -EPERM;\n\n\tif (nlmsg_len(nlh) < sizeof(*r))\n\t\treturn -EINVAL;\n\n\tr = nlmsg_data(nlh);\n\tif (r->can_family != AF_CAN)\n\t\treturn -EPFNOSUPPORT;\n\n\t/* so far we only support CAN -> CAN routings */\n\tif (r->gwtype != CGW_TYPE_CAN_CAN)\n\t\treturn -EINVAL;\n\n\terr = cgw_parse_attr(nlh, &mod, CGW_TYPE_CAN_CAN, &ccgw, &limhops);\n\tif (err < 0)\n\t\treturn err;\n\n\t/* two interface indices both set to 0 => remove all entries */\n\tif (!ccgw.src_idx && !ccgw.dst_idx) {\n\t\tcgw_remove_all_jobs();\n\t\treturn 0;\n\t}\n\n\terr = -EINVAL;\n\n\tASSERT_RTNL();\n\n\t/* remove only the first matching entry */\n\thlist_for_each_entry_safe(gwj, nx, &cgw_list, list) {\n\n\t\tif (gwj->flags != r->flags)\n\t\t\tcontinue;\n\n\t\tif (gwj->limit_hops != limhops)\n\t\t\tcontinue;\n\n\t\tif (memcmp(&gwj->mod, &mod, sizeof(mod)))\n\t\t\tcontinue;\n\n\t\t/* if (r->gwtype == CGW_TYPE_CAN_CAN) - is made sure here */\n\t\tif (memcmp(&gwj->ccgw, &ccgw, sizeof(ccgw)))\n\t\t\tcontinue;\n\n\t\thlist_del(&gwj->list);\n\t\tcgw_unregister_filter(gwj);\n\t\tkmem_cache_free(cgw_cache, gwj);\n\t\terr = 0;\n\t\tbreak;\n\t}\n\n\treturn err;\n}",
+        "patch": "--- code before\n+++ code after\n@@ -8,7 +8,7 @@\n \tu8 limhops = 0;\n \tint err = 0;\n \n-\tif (!capable(CAP_NET_ADMIN))\n+\tif (!netlink_capable(skb, CAP_NET_ADMIN))\n \t\treturn -EPERM;\n \n \tif (nlmsg_len(nlh) < sizeof(*r))",
+        "function_modified_lines": {
+            "added": [
+                "\tif (!netlink_capable(skb, CAP_NET_ADMIN))"
+            ],
+            "deleted": [
+                "\tif (!capable(CAP_NET_ADMIN))"
+            ]
+        },
+        "cve_description": "The Netlink implementation in the Linux kernel through 3.14.1 does not provide a mechanism for authorizing socket operations based on the opener of a socket, which allows local users to bypass intended access restrictions and modify network configurations by using a Netlink socket for the (1) stdout or (2) stderr of a setuid program.",
+        "id": 438,
+        "original_cwe": "CWE-264"
+    }
+]

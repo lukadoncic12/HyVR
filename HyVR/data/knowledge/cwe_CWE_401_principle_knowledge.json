@@ -1,0 +1,33 @@
+[
+    {
+        "cwe_id": "CWE-401",
+        "name": "Improper Release of Memory Before Removing Last Reference ('Memory Leak')",
+        "definition": "The software does not release memory after it has finished using it, which can lead to memory exhaustion and possibly denial of service.",
+        "common_code_behavior": "CWE-401 (Improper Release of Resource) vulnerabilities involve scenarios where allocated resources are not properly released or deallocated when they are no longer needed. This can lead to resource leaks, memory corruption, and other security issues.",
+        "vulnerability_logic_pattern": "1. Allocate a resource\n2. Perform operations using the resource\n3. Encountered an error or exceptional condition before resource is released\n4. Resource is never released due to missing error handling",
+        "reasoning_checklist": [
+            "Is there proper allocation of resources at the beginning?",
+            "Is there comprehensive error handling for all scenarios that could lead to early termination (e.g., exceptions, errors in operations)?",
+            "Are all resources properly released and deallocated in all possible control flow paths, including both normal execution and error handling? ",
+            "Does the code handle edge cases involving multiple allocations or nested resource management?",
+            "Is there any potential for circular references or unintended retention of reference-counted objects that might prevent timely resource release?",
+            "Are there any implicit assumptions that resources will always be properly released, such as relying on finalization mechanisms instead of explicit deallocation?"
+        ],
+        "standard_fix_principle": "Ensure that every allocated resource has a corresponding and guaranteed release path. Implement proper error handling around resource management to prevent leaks or corruption. Use RAII (Resource Acquisition Is Initialization) idioms or similar techniques to automate resource release where possible. Avoid relying on finalizers for important resources as they do not guarantee timely or predictable cleanup.",
+        "source_instances": {
+            "cve_ids": [
+                "CVE-2019-19053",
+                "CVE-2023-32247",
+                "CVE-2023-32247",
+                "CVE-2023-32247",
+                "CVE-2023-32247",
+                "CVE-2023-32247",
+                "CVE-2022-4139",
+                "CVE-2022-0854",
+                "CVE-2022-0854",
+                "CVE-2019-19078"
+            ],
+            "sample_count": 10
+        }
+    }
+]

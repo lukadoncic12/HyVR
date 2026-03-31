@@ -1,0 +1,38 @@
+[
+    {
+        "cwe_id": "CWE-119",
+        "name": "Improper Restriction of Operations within the Bounds of a Memory Buffer",
+        "definition": "The software performs operations on a memory buffer, but it can read from or write to a memory location that is outside of the intended boundary of the buffer.",
+        "common_code_behavior": "CWE-119 vulnerabilities typically arise from improper validation of offset fields within data structures, leading to buffer overflows or out-of-bounds memory access. The code frequently processes user-controllable input into pointers and offsets without sufficient checks on boundary conditions, allowing attackers to manipulate these values to access unauthorized memory regions.",
+        "vulnerability_logic_pattern": [
+            "User-supplied input is processed by the program",
+            "Input is used to calculate pointer offsets or array indices",
+            "Validation of calculated offsets or indices is inadequate",
+            "Program accesses out-of-bounds memory based on invalid offsets",
+            "Exploitation results in unintended behavior, such as memory corruption or code execution"
+        ],
+        "reasoning_checklist": [
+            "Does the code calculate pointers or access memory using user-defined or external inputs?",
+            "Are there checks to ensure that calculated pointers or indices are within valid boundaries?",
+            "Is there any opportunity for attackers to manipulate input values in such a way as to control pointer calculations?",
+            "If a buffer is accessed, is its size checked before allowing writes that exceed it?",
+            "Are memory accesses sequential and controlled, or do they depend on user input without sufficient validation?"
+        ],
+        "standard_fix_principle": "To fix CWE-119 vulnerabilities, ensure that all offset calculations and pointer arithmetic are accompanied by thorough boundary checks. Verify that user inputs are within expected ranges before using them in memory access operations. Use defensive programming techniques, such as bounds-checking functions, safe libraries, or language-specific safety features (e.g., Rust's borrowing model) to prevent unauthorized memory access.",
+        "source_instances": {
+            "cve_ids": [
+                "CVE-2014-3182",
+                "CVE-2014-3182",
+                "CVE-2013-7027",
+                "CVE-2016-3134",
+                "CVE-2016-3134",
+                "CVE-2016-3134",
+                "CVE-2016-3134",
+                "CVE-2016-3134",
+                "CVE-2016-3134",
+                "CVE-2016-3134"
+            ],
+            "sample_count": 10
+        }
+    }
+]

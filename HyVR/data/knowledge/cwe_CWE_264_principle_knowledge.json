@@ -1,0 +1,31 @@
+[
+    {
+        "cwe_id": "CWE-264",
+        "name": "Permissions, Privileges, and Access Controls",
+        "definition": "The product does not properly enforce limitations on what authenticated users are allowed to do.",
+        "common_code_behavior": "Insecure privilege checks in network management functions, where insufficient verification of socket user credentials or lack of appropriate access enforcement allows unauthorized users to perform actions with elevated privileges.",
+        "vulnerability_logic_pattern": "1) Function is exposed via a Netlink socket for privileged operation access.\n2) Privilege check verifies current process capabilities rather than user context associated with the socket.\n3) Insufficient validation or authorization process results in bypassing intended privilege restrictions.",
+        "reasoning_checklist": [
+            "Is the function accessible through a network interface such as Netlink?",
+            "Does the code perform capability checks based solely on the current process, rather than verifying user credentials associated with the socket?",
+            "Are there any mechanisms that prevent a malicious user from performing operations outside of their privilege level, even if they gain control over a privileged socket?",
+            "Is there proper handling of edge cases where access should be denied but is allowed, or vice versa?"
+        ],
+        "standard_fix_principle": "Always verify user credentials associated with network interfaces such as Netlink sockets before granting permissions to perform privileged operations. Ensure that only users with appropriate privileges can execute sensitive functions, and enforce strict validation checks to prevent unauthorized access.",
+        "source_instances": {
+            "cve_ids": [
+                "CVE-2014-0181",
+                "CVE-2014-0181",
+                "CVE-2014-0181",
+                "CVE-2014-0181",
+                "CVE-2014-0181",
+                "CVE-2014-0181",
+                "CVE-2014-0181",
+                "CVE-2014-0181",
+                "CVE-2014-0181",
+                "CVE-2014-0181"
+            ],
+            "sample_count": 10
+        }
+    }
+]

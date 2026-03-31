@@ -1,0 +1,31 @@
+[
+    {
+        "cwe_id": "CWE-362",
+        "name": "Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition')",
+        "definition": "The product contains a race condition in a shared resource that cannot be accessed safely by multiple threads of execution at the same time.",
+        "common_code_behavior": "CWE-362 vulnerabilities involve accessing or manipulating global or shared resources without proper synchronization mechanisms in multi-threaded or concurrent environments. This leads to race conditions where multiple threads can access and modify the shared resource simultaneously, causing unpredictable behavior, including potential corruption of data structures or memory.",
+        "vulnerability_logic_pattern": "1. Shared resource is accessed or modified by multiple threads.<br>2. No proper synchronization mechanism is used, such as locks, semaphores, or mutexes.<br>3. Concurrent access to the shared resource leads to race conditions and possible corruption.<br>4. This can result in crashes, data loss, or other unpredictable behaviors.",
+        "reasoning_checklist": [
+            "Is there a global or shared resource accessed by multiple threads?",
+            "Are there any mechanisms preventing simultaneous modification of the shared resource?",
+            "Can concurrent access to the shared resource lead to corruption?",
+            "Does the code handle edge cases, such as initialization order and timing issues?"
+        ],
+        "standard_fix_principle": "To fix CWE-362 vulnerabilities, apply synchronization mechanisms such as locks or semaphores when accessing or modifying global or shared resources. Ensure that all critical sections of code that access the shared resource are properly locked so that only one thread can access it at a time. Additionally, validate the integrity of shared data before use and handle potential race conditions gracefully.",
+        "source_instances": {
+            "cve_ids": [
+                "CVE-2012-3552",
+                "CVE-2012-3552",
+                "CVE-2012-3552",
+                "CVE-2012-3552",
+                "CVE-2012-3552",
+                "CVE-2012-3552",
+                "CVE-2012-3552",
+                "CVE-2012-3552",
+                "CVE-2012-3552",
+                "CVE-2012-3552"
+            ],
+            "sample_count": 10
+        }
+    }
+]

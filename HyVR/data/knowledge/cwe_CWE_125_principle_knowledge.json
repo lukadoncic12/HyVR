@@ -1,0 +1,31 @@
+[
+    {
+        "cwe_id": "CWE-125",
+        "name": "Out-of-bounds Read",
+        "definition": "The software reads data past the end, or before the beginning, of the intended buffer.",
+        "common_code_behavior": "CWE-125 vulnerabilities typically involve handling of buffer or memory regions where the boundaries are not properly checked or enforced before accessing elements within those regions. This often leads to out-of-bounds accesses that can read or write into adjacent memory, potentially corrupting critical data structures.",
+        "vulnerability_logic_pattern": "1. Unchecked or flawed boundary checks when accessing a buffer or memory region.\n2. Buffer or memory region access beyond its declared size due to logic errors in indexing.\n3. Out-of-bounds read: accessing uninitialized or sensitive data in adjacent memory locations.\n4. Out-of-bounds write: corrupting adjacent or critical data structures, potentially leading to program crashes or security vulnerabilities.",
+        "reasoning_checklist": [
+            "Is there any boundary checking when accessing elements within a buffer or memory region?",
+            "Are all possible access paths validated to ensure they remain within the buffer's boundaries?",
+            "What is the logic used for indexing into the buffer, and are there edge cases that could lead to exceeding the bounds?",
+            "Are there checks to prevent access beyond the end of the allocated memory for buffers or data structures?"
+        ],
+        "standard_fix_principle": "1. Enforce strict boundary checking when accessing elements within buffers or memory regions.\n2. Validate all indices and offsets used to access buffer elements, ensuring they remain within safe bounds at all times.\n3. Use safer programming constructs that automatically enforce memory boundaries, such as dynamic arrays or containers with bounds checking.\n4. Implement defensive coding practices, including testing for null or out-of-bounds conditions before performing operations.",
+        "source_instances": {
+            "cve_ids": [
+                "CVE-2014-7825",
+                "CVE-2014-7825",
+                "CVE-2014-7825",
+                "CVE-2020-28974",
+                "CVE-2017-9074",
+                "CVE-2017-9074",
+                "CVE-2017-9074",
+                "CVE-2017-7277",
+                "CVE-2017-7277",
+                "CVE-2017-7277"
+            ],
+            "sample_count": 10
+        }
+    }
+]
